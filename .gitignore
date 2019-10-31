@@ -7,3 +7,6 @@ node_modules/*
 *.swp
 *.log
 /nbproject/private/
+/.vscode/c_cpp_properties.json
+/.idea/
+/nbproject/
