@@ -211,9 +211,10 @@ namespace{
         //Common fields
         //DWORD                JobId;
         result_printer_job->Set(MY_NODE_MODULE_CONTEXT_PRE V8_STRING_NEW_UTF8("id"), V8_VALUE_NEW(Number, job->JobId));
-#define ADD_V8_STRING_PROPERTY(name, key) if((job->key != NULL) && (*job->key != L'\0'))    \
+#define ADD_V8_STRING_PROPERTY(name, key) ADD_V8_STRING_PROPERTY2(name,key,)
+#define ADD_V8_STRING_PROPERTY2(name, key, holder) if((job->holder##key != NULL) && (*job-> holder##key != L'\0'))    \
         {                                   \
-            result_printer_job->Set(MY_NODE_MODULE_CONTEXT_PRE V8_STRING_NEW_UTF8(#name), V8_STRING_NEW_2BYTES((uint16_t*)job->key)); \
+            result_printer_job->Set(MY_NODE_MODULE_CONTEXT_PRE V8_STRING_NEW_UTF8(#name), V8_STRING_NEW_2BYTES((uint16_t*)job-> holder##key)); \
         }
         //LPTSTR               pPrinterName;
         //result_printer_job->Set(MY_NODE_MODULE_CONTEXT_PRE V8_STRING_NEW_UTF8("name"), V8_STRING_NEW_2BYTES((uint16_t*)job->pPrinterName));
@@ -347,9 +348,10 @@ namespace{
     std::string parsePrinterInfo(const PRINTER_INFO_2W *printer, v8::Handle<v8::Object> result_printer, PrinterHandle& iPrinterHandle)
     {
         MY_NODE_MODULE_ISOLATE_DECL
-    #define ADD_V8_STRING_PROPERTY(name, key) if((printer->key != NULL) && (*printer->key != L'\0'))    \
+    #define ADD_V8_STRING_PROPERTY(name, key) ADD_V8_STRING_PROPERTY2(name, key,)
+    #define ADD_V8_STRING_PROPERTY2(name, key, holder) if((printer->holder##key != NULL) && (*printer->holder##key != L'\0'))    \
         {                                   \
-            result_printer->Set(MY_NODE_MODULE_CONTEXT_PRE V8_STRING_NEW_UTF8(#name), V8_STRING_NEW_2BYTES((uint16_t*)printer->key)); \
+            result_printer->Set(MY_NODE_MODULE_CONTEXT_PRE V8_STRING_NEW_UTF8(#name), V8_STRING_NEW_2BYTES((uint16_t*)printer->holder##key)); \
         }
         //LPTSTR               pPrinterName;
         ADD_V8_STRING_PROPERTY(name, pPrinterName)
