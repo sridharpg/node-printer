@@ -25,7 +25,7 @@ bool getStringOrBufferFromV8Value(v8::Local<v8::Value> iV8Value, std::string &oD
     MY_NODE_MODULE_ISOLATE_DECL
     if(iV8Value->IsString())
     {
-        v8::String::Utf8Value data_str_v8(iV8Value->ToString(MY_NODE_MODULE_CONTEXT).ToLocalChecked());
+        v8::String::Utf8Value data_str_v8(MY_NODE_MODULE_ISOLATE_PRE iV8Value->ToString(MY_NODE_MODULE_CONTEXT).ToLocalChecked());
         oData.assign(*data_str_v8, data_str_v8.length());
         return true;
     }

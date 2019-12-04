@@ -92,7 +92,7 @@
 
 #define REQUIRE_ARGUMENT_STRING(args, i, var)                                        \
     ARG_CHECK_STRING(args, i);                                                       \
-    v8::String::Utf8Value var(args.GetIsolate(), args[i]->ToString());
+    v8::String::Utf8Value var(MY_NODE_MODULE_ISOLATE_PRE args[i]->ToString(MY_NODE_MODULE_CONTEXT).ToLocalChecked());
 
 #define REQUIRE_ARGUMENT_STRINGW(args, i, var)                                        \
     ARG_CHECK_STRING(args, i);                                                       \

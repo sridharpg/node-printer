@@ -302,8 +302,8 @@ namespace
 				v8::Local<v8::Array> props = maybeProps.ToLocalChecked();
 				for(unsigned int i = 0; i < props->Length(); ++i) {
 					v8::Local<v8::Value> key((props->Get(MY_NODE_MODULE_CONTEXT_PRE i)).ToLocalChecked());
-					v8::String::Utf8Value keyStr(key->ToString(MY_NODE_MODULE_CONTEXT).ToLocalChecked());
-					v8::String::Utf8Value valStr(iV8Options->Get(MY_NODE_MODULE_CONTEXT_PRE key).ToLocalChecked()->ToString(MY_NODE_MODULE_CONTEXT).ToLocalChecked());
+					v8::String::Utf8Value keyStr(MY_NODE_MODULE_ISOLATE_PRE key->ToString(MY_NODE_MODULE_CONTEXT).ToLocalChecked());
+					v8::String::Utf8Value valStr(MY_NODE_MODULE_ISOLATE_PRE iV8Options->Get(MY_NODE_MODULE_CONTEXT_PRE key).ToLocalChecked()->ToString(MY_NODE_MODULE_CONTEXT).ToLocalChecked());
 
 					num_options = cupsAddOption(*keyStr, *valStr, num_options, &_value);
 				}
