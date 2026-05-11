@@ -21,7 +21,7 @@
       'sources': [
         # is like "ls -1 src/*.cc", but gyp does not support direct patterns on
         # sources
-        '<!@(["python", "tools/getSourceFiles.py", "src", "cc"])'
+        '<!@(["python3", "tools/getSourceFiles.py", "src", "cc"])'
       ],
       'cflags_cc+': [
         "-Wno-deprecated-declarations",
@@ -73,7 +73,21 @@
           'cflags':[
             "-Wdeprecated-declarations",
             "-stdlib=libc++"
-          ]
+          ],
+          'cflags_cc':[
+            "-std=c++20"
+          ],
+          'xcode_settings': {
+            'CLANG_CXX_LANGUAGE_STANDARD': 'c++20',
+            'CLANG_CXX_LIBRARY': 'libc++',
+            'MACOSX_DEPLOYMENT_TARGET': '14.0',
+            'OTHER_CPLUSPLUSFLAGS': [
+              '-std=c++20',
+              '-stdlib=libc++',
+              '-nostdinc++',
+              '-isystem', '/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1'
+            ]
+          }
         }],
         ['OS=="linux"', {
           'cflags_cc':[
